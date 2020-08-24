@@ -64,8 +64,8 @@
             </v-stepper-step>
             <v-stepper-content step="1">
               <v-list>
-                <template>
-                  <v-list-tile avatar v-if="magicPlaylistCategories !== null" v-for="category in magicPlaylistCategories" :key="category.id"
+                <template v-if="magicPlaylistCategories !== null">
+                  <v-list-tile avatar v-for="category in magicPlaylistCategories" :key="category.id"
                     v-on:click="
                       getMagicPlaylists(category.id);
                       decisionStep = 2;
@@ -86,9 +86,8 @@
               Choose Playlist Seed
             </v-stepper-step>
             <v-stepper-content step="2">
-              <v-layout row wrap>
+              <v-layout row wrap v-if="magicPlaylists !== null">
                 <v-flex xs6
-                  v-if="magicPlaylists !== null"
                   v-for="playlist in magicPlaylists"
                   :key="playlist.id"
                   v-on:click="
@@ -1945,15 +1944,15 @@ export default {
     spotifyApi.getMe()
         .then((data) => {
           this.userInfo = data
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
           this.$router.push('/')
         })
     spotifyApi.getMyDevices()
         .then((data) => {
           this.myDevices = data.devices
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
         })
   },
   methods: {
@@ -1962,15 +1961,15 @@ export default {
         spotifyApi.searchArtists(this.query, {limit: 5})
           .then((data) => {
             this.artistSearchResults = data
-          }, (err) => {
-            console.error(err)
+          }, () => {
+            // console.error(err)
           })
       } else {
         spotifyApi.searchTracks(this.query, {limit: 5})
           .then((data) => {
             this.trackSearchResults = data
-          }, (err) => {
-            console.error(err)
+          }, () => {
+            // console.error(err)
           })
       }
     }, 200),
@@ -1989,16 +1988,16 @@ export default {
       spotifyApi.getCategories({limit: 50})
         .then((data) => {
           this.magicPlaylistCategories = data.categories.items
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
         })
     },
     getMagicPlaylists: function (playlistId) {
       spotifyApi.getCategoryPlaylists(playlistId, {limit: 50})
         .then((data) => {
           this.magicPlaylists = data.playlists.items
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
         })
     },
     // buildMagicPlaylist: function () {
@@ -2033,11 +2032,11 @@ export default {
             spotifyApi.getArtistRelatedArtists(data.id)
               .then((data) => {
                 this.relatedArtists = data
-              }, (err) => {
-                console.error(err)
+              }, () => {
+                // console.error(err)
               })
-          }, (err) => {
-            console.error(err)
+          }, () => {
+            // console.error(err)
           })
       }
     },
@@ -2050,11 +2049,11 @@ export default {
             spotifyApi.getArtistRelatedArtists(data.artists[0].id)
               .then((data) => {
                 this.relatedArtists = data
-              }, (err) => {
-                console.error(err)
+              }, () => {
+                // console.error(err)
               })
-          }, (err) => {
-            console.error(err)
+          }, () => {
+            // console.error(err)
           })
       }
     },
@@ -2065,16 +2064,16 @@ export default {
       spotifyApi.getMyTopArtists({limit: 10, time_range: 'short_term'})
         .then((data) => {
           this.myTopArtists = data
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
         })
     },
     getTopTracks: function () {
       spotifyApi.getMyTopTracks({limit: 10, time_range: 'short_term'})
         .then((data) => {
           this.myTopTracks = data
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
         })
     },
     // surpriseArtist: function () {
@@ -2238,8 +2237,8 @@ export default {
               .then((data) => {
                 this.relatedArtists = data
                 newRelatedArtistIndex += 1
-              }, (err) => {
-                console.error(err)
+              }, () => {
+                // console.error(err)
               })
           }
         } while (this.uniqueTracks.length < this.recommendationLimit)
@@ -2269,8 +2268,8 @@ export default {
         .then((data) => {
           this.myCreatedPlaylist = data
           spotifyApi.addTracksToPlaylist(this.userInfo.id, data.id, this.tracksArray)
-        }, (err) => {
-          console.error(err)
+        }, () => {
+          // console.error(err)
         })
     }
   }
