@@ -24,6 +24,7 @@ Vue.use(VueAnalytics, {
 
 Vue.config.productionTip = false
 
+// eslint-disable-next-line
 new Vue({
   el: '#app',
   router,

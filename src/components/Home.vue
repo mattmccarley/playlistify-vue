@@ -21,7 +21,7 @@ export default {
       credentials: {
         clientId: '466b2a4b16874dadb28efaeb9e21005c',
         responseType: 'token',
-        redirectUri: 'https://sharp-knuth-1fd4c7.netlify.app/build',
+        redirectUri: 'http://localhost:8080/build',
         state: this.generateRandomString(16),
         scope: 'user-read-private' +
           ' user-read-email' +
